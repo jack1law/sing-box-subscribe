@@ -59,7 +59,7 @@
   "inbounds": [
     {
       "type": "tun",
-      "address": "198.18.0.1/16", 
+      "address": "198.18.0.1/16",
       "stack": "gvisor",
       "auto_route": true,
       "strict_route": true,
@@ -89,16 +89,16 @@
     {
       "tag": "Proxy",
       "type": "selector",
-      "outbounds": [
+      "outbounds":[
         "auto",
-        {{ "" | NotesName }}
+        "{all}"
       ]
     },
     {
       "tag": "auto",
       "type": "urltest",
-      "outbounds": [
-        {{ "" | NotesName }}
+      "outbounds":[
+        "{all}"
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
@@ -107,8 +107,7 @@
     {
       "type": "direct",
       "tag": "direct"
-    },
-    {{ Nodes }}
+    }
   ],
   "route": {
     "auto_detect_interface": true,
@@ -117,15 +116,11 @@
         "type": "logical",
         "mode": "or",
         "rules": [
-          {
-            "port": 53
-          },
-          {
-            "protocol": "dns"
-          }
+          { "port": 53 },
+          { "protocol": "dns" }
         ],
         "outbound": "dns-out"
-      }, 
+      },
       {
         "clash_mode": "global",
         "outbound": "Proxy"
